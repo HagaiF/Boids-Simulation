@@ -88,6 +88,7 @@ function normVel(boids)
 	var v = boids.params.vel;
 	var tf = boids.params.toward_force;
 	var ff = boids.params.freewill_force;
+	var mrad = boids.params.toward_dist;
 	var ntf = 1 - tf;
 	var nff = 1 - ff;
 	if (v>0) {
@@ -98,11 +99,14 @@ function normVel(boids)
 			if (tf != 0 && b[4]&0x10) {
 			   var dx = mouseX - b[0];
 			   var dy = mouseY - b[1];
-			   dir = Math.atan2(dy, dx);
-			   dx = force*Math.cos(dir);
-			   dy = force*Math.sin(dir);
-			   b[2] = tf*dx + ntf*b[2];
-			   b[3] = tf*dy + ntf*b[3];
+			   var d = Math.sqrt(dx*dx + dy*dy);
+			   if (d<mrad) {
+			   	  dir = Math.atan2(dy, dx);
+			   	  dx = force*Math.cos(dir);
+			   	  dy = force*Math.sin(dir);
+			   	  b[2] = tf*dx + ntf*b[2];
+			   	  b[3] = tf*dy + ntf*b[3];
+				}
 			}
 			if (ff != 0 && b[4]&0x1) {
 			   dir = 2*Math.PI*Math.random();

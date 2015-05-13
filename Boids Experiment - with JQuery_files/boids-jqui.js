@@ -85,17 +85,16 @@ $(document).ready(function(){
 	  });
 	
 	start(50);		
-	//makeSlider1("Alignment:",function(v){theBoids.params.align = v}, {value:.1, min:0, max:1, step:.05});
-	//makeSlider1("Avoid:",function(v){theBoids.params.avoid = v}, {value:6, min:1, max:10, step:.5});
 	makeSlider1("Separation Distance:",function(v){theBoids.params.distance = v}, {value:75, min:50, max:150, step:1});
 	makeSlider1("Separation Force:",function(v){theBoids.params.separation_force = v}, {value:.01, min:0, max:.05, step:.001});
 	makeSlider1("Cohesion Distance:",function(v){theBoids.params.cohesion = v}, {value:200, min:100, max:500, step:5});
 	makeSlider1("Cohesion Force:",function(v){theBoids.params.cohesion_force = v}, {value:.01, min:0, max:.05, step:.001});
 	makeSlider1("Alignment Force:",function(v){theBoids.params.alignment_force = v}, {value:.2, min:0, max:.5, step:.001});
 	makeSlider2("Velocity:",function(v){theBoids.params.vel = v}, {value:2, min:0, max:10, step:.1});
-	makeSlider1("Away From/Toward Force:",function(v){theBoids.params.toward_force = v}, {value:0, min:-.4, max:.4, step:.02});
 	makeSlider1("Free Will Force:",function(v){theBoids.params.freewill_force = v}, {value:0.1, min:0, max:.2, step:.001});
 	makeSlider2("Radius:",function(v){theBoids.params.radius = v}, {value:3, min:.5, max:10, step:.5});
+	makeSlider2("A/T Force:",function(v){theBoids.params.toward_force = v}, {value:0, min:-.4, max:.4, step:.02});
+	makeSlider2("A/T Distance:",function(v){theBoids.params.toward_dist = v}, {value:300, min:50, max:700, step:25});
 	
 	$("select").change(function() {
     $( "select option:selected" ).each(function() {
@@ -156,6 +155,7 @@ function edgeButtonCB()
 		$("#edgebutton").html("Bounce");
 	}
 }
+
 
 //        		<div class="inset">
 //        			<span class="numlabel">Radius:</span>

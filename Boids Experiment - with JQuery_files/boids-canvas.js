@@ -58,19 +58,7 @@ function drawBoids()
 		var blist = bi[5];
 		cent.x = bi[0];
 		cent.y = bi[1];
-		/*
-		for(var j=blist.length-1; j>=0; j--) {
-				var k = blist[j];
-				if (k < i) {
-				   var bk = theBoids[k];
-				   var dx = cent.x - bk[0];
-			  	   var dy = cent.y - bk[1];
-				   var angle = Math.atan2(dy, dx);
-				   cent.x += rad*Math.cos(angle);
-				   cent.y += rad*Math.sin(angle);
-				}
-		}
-	    */
+		
 		theContext.beginPath();
 		theContext.arc(cent.x,cent.y,rad,0,circ,true);   // Boids Arc
 		theContext.closePath();
@@ -133,16 +121,30 @@ function drawBoids()
 		   }
 		}
 	}
-	for(var i=barrier-1; i>=0; i--) { // draw line
-		theContext.beginPath();
-		theContext.arc(theBarrier[i][0],theBarrier[i][1],10,0,circ,true);   // Boids Arc
-		//theContext.arc(600,250,10,0,circ,true);   // Boids Arc
-		theContext.closePath();
-		theContext.strokeStyle="black";
-		theContext.fillStyle = "red";
-		theContext.stroke();
-		theContext.fill();
+	barlen = theBarrier.length;
+	if (barlen>0) {
+	   theContext.beginPath();
+	   theContext.arc(theBarrier[0][0],theBarrier[0][1],rad,0,circ,true);
+	   theContext.moveTo(theBarrier[0][0],theBarrier[0][1]);
+	   for(var i=1; i<barlen; i++) { // draw line
+			   theContext.lineTo(theBarrier[i][0],theBarrier[i][1]);
+			   theContext.arc(theBarrier[i][0],theBarrier[i][1],rad,0,circ,true);
+	   }
+	   theContext.closePath();
+	   theContext.strokeStyle="gray";
+	   theContext.fillStyle="gray";
+	   theContext.stroke();
+	   theContext.fill();
 	}
+	if (theBoids.params.toward_force && debug) {
+		  var mrad = theBoids.params.toward_dist;
+		  theContext.beginPath();
+		  theContext.arc(mouseX,mouseY,mrad,0,circ,true);   // Mouse Circle
+		  theContext.closePath();
+		  theContext.strokeStyle="green";
+		  theContext.stroke();
+	}
+	
 }
 
 function canvasclick()
